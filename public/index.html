@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PA Console</title>
+  <script>
+    document.documentElement.dataset.theme =
+      new URLSearchParams(location.search).get('theme') ||
+      localStorage.getItem('theme') ||
+      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  </script>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="announce">Same Wi-Fi only. Audio never leaves your network.</div>
+
+  <header class="topbar">
+    <div class="wrap topbar-row">
+      <span class="wordmark">PA Console</span>
+      <div class="status-group">
+        <span class="chip" id="wsChip"><span class="dot" id="wsDot"></span><span id="wsLabel">connecting</span></span>
+        <span class="chip" id="peerChip" hidden><span class="dot dot-ok"></span><span id="peerLabel">iPad ready</span></span>
+        <span class="chip chip-num" id="rttChip" hidden><span id="rttLabel">0</span> ms</span>
+        <button type="button" class="theme-toggle" id="themeToggle">Dark mode</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="stage card">
+      <div id="onair" class="onair" hidden>ON AIR</div>
+      <button id="ptt" class="ptt" disabled>
+        <span class="ptt-top">HOLD<br/>TO TALK</span>
+        <span class="ptt-hint" id="pttHint">enable mic first</span>
+      </button>
+      <div class="meter" aria-hidden="true"><div id="meterFill"></div></div>
+
+      <div class="stage-controls">
+        <label class="check">
+          <input type="checkbox" id="chimeToggle" checked />
+          Chime before talk
+        </label>
+        <label class="mic-label">
+          <span class="label-text">Mic</span>
+          <select id="micSelect"><option value="">Default</option></select>
+        </label>
+      </div>
+      <p class="kbd-hint">Hold <kbd>space</kbd> to talk, release to stop.</p>
+    </section>
+
+    <aside class="panel">
+      <section class="card">
+        <h2 class="card-title">Network</h2>
+        <div class="kv"><span class="k">Wi-Fi</span><span class="v" id="wifiSsid">…</span></div>
+        <div class="kv"><span class="k">Mac IP</span><span class="v" id="wifiIp">…</span></div>
+        <div class="ips" id="ipList"></div>
+
+        <form id="wifiForm" class="wifi-form">
+          <h3 class="form-title">Switch Wi-Fi</h3>
+          <div class="field">
+            <label for="wifiSsidInput">Network name</label>
+            <input type="text" id="wifiSsidInput" placeholder="New network name (SSID)" autocomplete="off" value="test" />
+          </div>
+          <div class="field">
+            <label for="wifiPassInput">Password</label>
+            <input type="password" id="wifiPassInput" placeholder="Empty for open networks" autocomplete="off" value="welcome1" />
+          </div>
+          <button type="submit" id="wifiBtn">Switch Wi-Fi</button>
+          <p class="wifi-status" id="wifiStatus">Switching drops this Mac's Wi-Fi for about 10 s. The iPad re-finds the Mac on its own.</p>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Connect the iPad</h2>
+        <p class="help">
+          Open <b>iPad-PA</b> on the iPad and pick this Mac from the discovered
+          servers, or type an IP above. Both devices must be on the same Wi-Fi.
+        </p>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="abyss">
+    <div class="wrap footer-row">
+      <span class="wordmark wordmark-paper">PA Console</span>
+      <span class="footer-note">Hold space to talk. Release to stop.</span>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

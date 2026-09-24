@@ -1,0 +1,15 @@
+{
+  "name": "pa-operator-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PA system: Mac operator website + WebSocket audio relay server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/relay-test.js"
+  },
+  "dependencies": {
+    "bonjour-service": "^1.2.1",
+    "ws": "^8.18.0"
+  }
+}
