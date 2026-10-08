@@ -2,3 +2,4 @@
 .env*
 .vercel
 node_modules/
+fleet-ids.json
